@@ -1,24 +1,30 @@
 #pragma once
 #include <iostream>
 using namespace std;
+#include "shape.h"
 
 
 enum Orientation {Standing, Sleeping };
 
-class Rectangle
+class ProperRectangle : public Rectangle
 {
     int width,height;
     public:
-    Rectangle(int width,int height){
+    ProperRectangle(int width,int height){
         this->width = width;
         this->height = height;
     }
 
     int area() const { return width*height; }
+   
     int perimeter() const  {return 2*(width+height);}
+    virtual void setWidth(int width) {this->width=width;}
+    virtual void setHeight(int height) {this->height=height;}
+   
     void draw(){
-        cout<<"Rectangle ["<<width<<","<<height<<" drawn";
+        cout<<"Rectangle ["<<width<<","<<height<<"] drawn"<<endl;
     }
+  
     Orientation orientation(){
         if(width>height){
             return Orientation::Sleeping;
