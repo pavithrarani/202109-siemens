@@ -1,0 +1,29 @@
+#pragma once
+#include <iostream>
+using namespace std;
+
+
+enum Orientation {Standing, Sleeping };
+
+class Rectangle
+{
+    int width,height;
+    public:
+    Rectangle(int width,int height){
+        this->width = width;
+        this->height = height;
+    }
+
+    int area() const { return width*height; }
+    int perimeter() const  {return 2*(width+height);}
+    void draw(){
+        cout<<"Rectangle ["<<width<<","<<height<<" drawn";
+    }
+    Orientation orientation(){
+        if(width>height){
+            return Orientation::Sleeping;
+        } else{
+            return Orientation::Standing;
+        }
+    }
+};

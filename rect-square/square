@@ -1,0 +1,8 @@
+#pragma once
+#include "rectangle"
+
+
+class Square: public Rectangle{
+    public:
+        Square(int size): Rectangle(size,size){}
+};
