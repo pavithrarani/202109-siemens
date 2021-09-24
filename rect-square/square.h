@@ -3,8 +3,18 @@
 #include "shape.h"
 
 class RSquare: public ProperRectangle{
+        
+        
+
     public:
         RSquare(int size): ProperRectangle(size,size){}
+
+        Orientation orientation() {
+            int x=0;
+           // return Orientation::Standing;
+           cout<<"in private getOrientation"<<endl;
+           throw "orientation is not supported";
+        }
         
 };
 
