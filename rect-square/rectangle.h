@@ -25,7 +25,7 @@ class ProperRectangle : public Rectangle
         cout<<"Rectangle ["<<width<<","<<height<<"] drawn"<<endl;
     }
   
-    Orientation orientation(){
+    virtual Orientation orientation(){
         if(width>height){
             return Orientation::Sleeping;
         } else{

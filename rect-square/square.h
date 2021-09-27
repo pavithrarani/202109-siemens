@@ -1,20 +1,25 @@
 #pragma once
 #include "rectangle.h"
+#include <exception>
 #include "shape.h"
+
+using namespace std;
 
 class RSquare: public ProperRectangle{
         
-        
+   
 
     public:
         RSquare(int size): ProperRectangle(size,size){}
 
-        Orientation orientation() {
-            int x=0;
-           // return Orientation::Standing;
-           cout<<"in private getOrientation"<<endl;
-           throw "orientation is not supported";
-        }
+    Orientation orientation() {
+        
+        //return Orientation::Sleeping;
+        //throw "Orientation is not supported";
+
+        throw "Orientation is not supported";
+       
+    }  
         
 };
 
