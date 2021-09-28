@@ -1,0 +1,22 @@
+
+#include <iostream>
+#include "tax-manager.h"
+using namespace std;
+
+
+
+int main(int argc, char const *argv[])
+{
+    auto manager=new TaxManager();  
+    manager->setTaxSubmitter(new CustomTaxSubmitter());
+    manager->fileTax("m1234",2020);
+    manager->fileTax("f1234",2020);
+
+
+   //now migrate to custom submitter next year
+   
+   manager->setTaxSubmitter(new FileTaxSubmitter("tax-details.txt"));
+   manager->setTaxCalculator(new TaxCalculator2019());
+    manager->fileTax("m1234",2021);
+    manager->fileTax("f1234",2021);
+}

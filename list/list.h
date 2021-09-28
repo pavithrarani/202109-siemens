@@ -3,122 +3,121 @@
 #include <exception>
 #include <string>
 using namespace std;
-
-
-class Node
-{
-    public:
-        int value;
-        Node * next;
-        Node * previous;
-        Node(int value,Node *next=NULL,Node *previous=NULL){
-            this->value=value;
-            this->next=next;
-            this->previous=previous;
-        }
-};
-
+#define POS_END -1
 class LinkedList
 {
-    Node* first;
-    
-    public:
 
-    LinkedList(){
-        first=NULL;
-    }
-
-    void add(int value) 
+    class Node
     {
-        
-        Node *n= new Node(value);
-        //if the list is currently empty
-        if(!first){
-            first=n;
-            return ;
+    public:
+        int value;
+        Node *next;
+        Node *previous;
+        Node(int value, Node *next = NULL, Node *previous = NULL)
+        {
+            this->value = value;
+            this->next = next;
+            this->previous = previous;
+        }
+    };
+    Node *first;
+    Node *last;
+    int count;
+
+    Node * locate(int pos){
+
+        if(pos==POS_END)
+            pos=count-1;
+
+        if(pos<0 || pos>=count)
+        {
+            string message="invalid index ";
+            message+=pos;
+            throw new out_of_range(message);
         }
 
-        //Add to the end of a non-empty list
-        Node *p=first;
-        while(p->next){
-            p=p->next;
-        }
-        n->previous=p;
-        p->next= n;
+        if(pos==count-1)
+            return last;
 
-        return ;
+        Node *n=first;
+
+        for(int i=0;i<pos;i++)
+            n=n->next;
+
+        return n;
+            
     }
 
-    int size(){
-        int count=0;
-        for(Node * n=first;n;n=n->next){
-            count++;
+public:
+    LinkedList()
+    {
+        first = NULL;
+        last=NULL;
+        count=0;
+    }
+
+    void add(int value)
+    {
+
+        Node *newNode = new Node(value);
+        
+        if (!first)
+        {
+            first = newNode;
+        }
+        else
+        {
+            newNode->previous=last;  //previous to new node will be current last
+            last->next=newNode;      //next to current last will be new Node
+
         }
 
+        last=newNode;           //new node becomes the last
+        count++;
+        
+        return;
+    }
+
+    int size()
+    {
         return count;
     }
 
-    int get(int pos){
-        
-        Node *n=first;
-        for(int i=0;i<pos && n ;i++,n=n->next)
-            ;
 
-        if(n)
-            return n->value;
-        else
-            throw out_of_range("index out of range ");
-        
+    int get(int pos)
+    {
+        return locate(pos)->value;
     }
 
-    int set(int pos,int value){
-        
-        Node *n=first;
-        for(int i=0;i<pos && n ;i++,n=n->next)
-            ;
-
-        if(n)
-            n->value=value;
-        else
-            throw out_of_range("index out of range ");
-        
+    int set(int pos, int value)
+    {
+        locate(pos)->value=value;
     }
 
-    int remove(int pos){
-        
-        if(pos==0)
-        {
-            Node *d= first;
+    int remove(int pos)
+    {
+        Node * d = locate(pos);
+
+        if(d==first){
             first=d->next;
-            int v=d->value;
-            delete d;
-            return v;
+            first->previous=NULL;
         }
-
-        Node *n=first;
-        for(int i=0;i<pos-1 && n ;i++,n=n->next)
-            ;
-
-        if(n){
-            Node *d=n->next; //delete next item
-            int v=d->value; //collect value to return
-
-            if(d->previous)
-                d->previous->next= d->next;
-            else
-                first=d->next;  //deleting the first item
-
-            if(d->next)  //if not the last item
-                d->next->previous=d->previous;
-
-
-            delete d;
-
-            return v;
-        }            
         else
-            throw out_of_range("index out of range ");
-        
-    }
+            d->previous->next=d->next; 
 
+        if(d==last){
+            last=d->previous;
+            last->next=NULL;
+        } 
+        else
+        {
+            d->next->previous=d->previous;
+        }
+            
+        int value=d->value;
+        delete d;
+        count--;
+        return value;
+       
+    }
 };
