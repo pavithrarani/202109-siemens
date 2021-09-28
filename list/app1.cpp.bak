@@ -1,0 +1,109 @@
+
+#include <iostream>
+#include <exception>
+
+using namespace std;
+//#include "list0.h"
+//#include "list1.h"
+#include "list.h"
+
+
+//LinkedList is duplicated using copy constructor in our code here
+void showList(LinkedList list, const char* caption="Linked List"){
+
+    cout<<caption<<"\t";
+    for(int i=0; i<list.size();i++)
+        cout<<list.get(i)<<"\t";
+
+
+    cout<<endl;
+}
+
+int main(){
+
+    LinkedList list1;
+    for(int i=0;i<10;i++)
+        list1.add(i);
+
+    showList(list1);
+
+    list1.set(5,100);
+
+    showList(list1);
+
+    return 0;
+}
+
+
+
+
+
+
+void createList(int items){
+    LinkedList list;
+
+    for(int i=0;i<items;i++){
+        list.add(i);
+    }
+
+    //destructor is called. If it doesn't clear() it will end up becoming memory leak
+}
+
+int destructorTest(){
+
+    
+    int x=0;
+    while(true){
+        x++;
+        createList(10000); //approx 12000 bytes
+        if(x%100==0)
+            cout<<" + ";
+    }
+
+    return 0;
+}
+
+int shallowCopyTest(){
+
+    LinkedList list1;  //object created using 0 arg constructor
+    for(int i=1;i<=10;i++) list1.add(i);
+
+    showList(list1,"list1");
+    
+
+    LinkedList list2;   //object is created using 0 arg constructor
+    list2=list1; //value is assigned using operator=
+    showList(list2,"list2");
+
+    LinkedList list3=list1;  //what constructor is getting used? LinkedList(LinkedList &second) --> copy constructor
+    showList(list3,"list3");
+
+    list2.set(5,100);
+
+    list3.remove(8); //list3.counSSt=9
+    
+    showList(list1,"list1"); //list1.count=10
+
+    return 0;
+}
+
+
+
+
+int simpleListTest(){
+
+    LinkedList l1,l2;
+
+    for(int i=1;i<=5;i++){
+        l1.add(i*10);
+        l2.add(i*100);
+    }
+
+    for(int i=0;i<l1.size();i++){
+        cout<< i<<"\t"
+            <<l1.get(i)<<"\t"
+            <<l2.get(i)<<endl;
+    }
+
+    return 0;
+}

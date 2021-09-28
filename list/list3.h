@@ -48,27 +48,6 @@ class LinkedList
             
     }
 
-
-    //The actual logic here doesn't matter as we don't intend anyone to call them
-     LinkedList(const LinkedList & source){
-        // first=NULL;
-        // last=NULL;
-        // count=0;
-        // copy(source);
-    }
-
-    LinkedList& operator=(const LinkedList & source){ 
-
-        //if someone write x=x (self copy)
-        // if(this==&source)
-        //     return *this; //no need to self copy.
-
-        // clear(); //remove current values if any
-        // copy(source); //copy new values
-        
-        return *this;
-    }
-
 public:
     LinkedList()
     {
@@ -81,7 +60,23 @@ public:
         clear();
     }
 
-   
+    LinkedList(const LinkedList & source){
+        first=NULL;
+        last=NULL;
+        count=0;
+        copy(source);
+    }
+
+    LinkedList& operator=(const LinkedList & source){ 
+
+        //if someone write x=x (self copy)
+        if(this==&source)
+            return *this; //no need to self copy.
+
+        clear(); //remove current values if any
+        copy(source); //copy new values
+        return *this;
+    }
 
 
     void copy(const LinkedList &source){

@@ -28,12 +28,12 @@ class CustomTaxSubmitter: public ConsoleTaxSubmitter {
 
 class FileTaxSubmitter: public TaxSubmitter {
 
-    char *filename;
+    
     FILE * file;
     public:
-    FileTaxSubmitter(char *fileName){
-        this->filename=filename;
-        this->file=fopen(filename,"a");
+    FileTaxSubmitter(const char *fileName){
+        
+        this->file=fopen(fileName,"a");
     }
 
     ~FileTaxSubmitter(){
@@ -42,7 +42,7 @@ class FileTaxSubmitter: public TaxSubmitter {
 
 
     void submitTax(string pan, int year, int tax){
-        fprintf(file,"%s,%d,%d\n",pan,year,tax);
+        fprintf(file, "%s,%d,%d\n",pan.c_str(),year,tax);
         fflush(file);
     }
 
