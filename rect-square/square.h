@@ -1,16 +1,16 @@
 #pragma once
 #include "rectangle.h"
 #include <exception>
-#include "shape.h"
+#include "proper-rectangle.h"
 
 using namespace std;
 
-class RSquare: public ProperRectangle{
+class RSquare: public TwoTileRectangle{
         
    
 
     public:
-        RSquare(int size): ProperRectangle(size,size){}
+        RSquare(int size): TwoTileRectangle(size,size){}
 
     Orientation orientation() {
         

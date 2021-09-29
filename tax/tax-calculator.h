@@ -1,3 +1,4 @@
+#pragma once
 
 class TaxCalculator{
 
@@ -22,11 +23,29 @@ class TaxCalculator2020: public TaxCalculator {
     }
 };
 
-class TaxCalculator2021:public  TaxCalculator {
+class TaxCalculator2021_V1:public  TaxCalculator2020 {
+
     public:
     int calculateTax(FinancialInfo info){       
-        //rules for Males remains unchanged
-        //Ladies gets 5% extra rebate on previous years calculation
-        //How do I reuse TaxCaclculator 2020
+        int tax= TaxCalculator2020::calculateTax(info);
+        if(info.gender==Gender::Female)
+            tax=tax*0.95;
+
+        return tax;
     }
 };
+
+
+class TaxCalculator2021:public  TaxCalculator {
+
+    TaxCalculator2020 old;
+    public:
+    int calculateTax(FinancialInfo info){       
+        int tax= old.calculateTax(info);
+        if(info.gender==Gender::Female)
+            tax=tax*0.95;
+        return tax;
+    }
+};
+
+
