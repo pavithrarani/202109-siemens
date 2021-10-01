@@ -3,26 +3,10 @@
 #include <string>
 #include <sstream>
 #include <exception>
+#include "calculator-exception.h"
 using namespace std;
 #include "tax-calculator.h"
 
-class CalculatorNotFound :public exception{
-
-    int year;
-
-    public:
-    CalculatorNotFound(int year){
-        this->year=year;
-    }
-
-    const char * what() const throw(){
-        
-      return "Tax Calculator Not Found";
-    }
-
-    int getYear() const { return year; }
-
-};
 
 class TaxCalculatorFactory{
 

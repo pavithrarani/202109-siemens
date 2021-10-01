@@ -13,6 +13,8 @@ struct FinancialInfo{
     int income;
     int expense;
     int investment;
+    //what if I tomorrow need new informations here like: age,geography
+    //what if day after tomorrow I need another information like:  SEZ
 };
 
 class FinancialInfoSource 
